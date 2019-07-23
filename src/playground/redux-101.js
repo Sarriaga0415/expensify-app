@@ -1,32 +1,32 @@
-import {createStore} from 'redux';
+import { createStore } from 'redux';
 
-const add = ({a, b}) => {
-  return a + b;
-};
+// Action generators - functions that return action objects
 
-console.log(add({a: 1, b: 12}));
-
-const incrementCount = ({incrementBy = 1} = {}) => ({type: 'INCREMENT',
-incrementBy 
+const incrementCount = ({ incrementBy = 1 } = {}) => ({
+  type: 'INCREMENT',
+  incrementBy
 });
 
-const decrementCount = ({decrementBy = 1} = {}) => ({
+const decrementCount = ({ decrementBy = 1 } = {}) => ({
   type: 'DECREMENT',
   decrementBy
 });
 
 const setCount = ({ count }) => ({
-  type: 'SET', count
+  type: 'SET',
+  count
 });
 
-const resetCount = () =>({type: 'RESET'});
+const resetCount = () => ({
+  type: 'RESET'
+});
 
-//Reducers
-//1. Reducers are pure functions
-//2. Never change state or action
+// Reducers
+// 1. Reducers are pure functions
+// 2. Never change state or actiton
 
-const countReducer = (state= {count: 0}, action) => {
-  switch(action.type) {
+const countReducer = (state = { count: 0 }, action) => {
+  switch (action.type) {
     case 'INCREMENT':
       return {
         count: state.count + action.incrementBy
@@ -50,34 +50,18 @@ const countReducer = (state= {count: 0}, action) => {
 
 const store = createStore(countReducer);
 
-const unsubscribe = store.subscribe(()=> {
+const unsubscribe = store.subscribe(() => {
   console.log(store.getState());
 });
 
- 
-// store.dispatch({
-//   type: 'INCREMENT',
-//   incrementBy: 5
-// });
-
-store.dispatch(incrementCount({incrementBy: 5}));
-
-// store.dispatch({
-//   type: 'INCREMENT'
-// });
+store.dispatch(incrementCount({ incrementBy: 5 }))
 
 store.dispatch(incrementCount());
 
 store.dispatch(resetCount());
 
-store.dispatch(
-  decrementCount()
-);
+store.dispatch(decrementCount());
 
-store.dispatch(
-  decrementCount({decrementBy: 10})
-);
+store.dispatch(decrementCount({ decrementBy: 10 }));
 
-
-
-store.dispatch(setCount({count: 101}));
+store.dispatch(setCount({ count: -100 }));
